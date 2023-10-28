@@ -1,8 +1,10 @@
 let paused = false; 
 let seconds = 0;  
+let minutes = 0;
+let hours = 0; 
 
 const hour = document.querySelector('#hour');
-const mns = document.querySelector('#minutes');
+let mns = document.querySelector('#minutes');
 const secs = document.querySelector('#secs');
  
 console.log(hour);  
@@ -25,50 +27,35 @@ function start(){
         } if (seconds >= 10) {
             seconds = 0; 
             secs.textContent = "0" + seconds; 
-            mns.textContent = "0" + seconds; 
+            minutes++;    
+            mns.textContent = "0" + minutes; 
 
-        }   
+            if (minutes >= 59){
+                minutes = 0; 
+                mns.textContent = "0" + minutes; 
+                hours++; 
+                hour.textContent = "0" + hours;  
+            }
+        }    
         setTimeout(start, 1000);
         
-        
-     
 };   
+
+function reset(){
+    secs.textContent = "00";
+    mns.textContent = "00";
+    hour.textContent = "00"; 
+}
  
  
 
-const startButton = document.querySelector(".start");  
+const startButton = document.querySelector(".start"); 
+const resetButton = document.querySelector(".reset");  
 startButton.addEventListener("click", start);  
+resetButton.addEventListener("click", reset); 
 
 
 
 
 
 
-
-// setInterval(start, 1);   
-
-// function pause(){
-
-// }
-
-// function stop(){
-
-// }
-
-// function reset(){
-
-// }
-
-
-
-// const newYear = "1 Jan 2021";
-
-// function Countdown(){
-//     const newYearDate = new Date(newYear);
-//     const currentDate = new Date();
-
-//     const seconds = (newYearDate - currentDate) *1000;
-//     console.log(seconds);  
-// }
-
-// Countdown(); 
