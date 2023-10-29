@@ -2,56 +2,70 @@ let paused = false;
 let seconds = 0;  
 let minutes = 0;
 let hours = 0; 
+let running = false; 
 
-const hour = document.querySelector('#hour');
+let hour = document.querySelector('#hour');
 let mns = document.querySelector('#minutes');
-const secs = document.querySelector('#secs');
- 
-console.log(hour);  
-console.log(mns);
-console.log(secs); 
-
-
-// function time(){
-//     for (let i=0; i<10000; i++){
-
-//     }
-// }
-
- 
+let secs = document.querySelector('#secs');
 
 function start(){ 
-   seconds++; 
-        if (seconds < 10) {
-            secs.textContent = "0" + seconds;
-        } if (seconds >= 10) {
-            seconds = 0; 
-            secs.textContent = "0" + seconds; 
-            minutes++;    
-            mns.textContent = "0" + minutes; 
+    if (!running){    
+        seconds++; 
+        secs.textContent = "0" + seconds;
+        mns.textContent = "0" + minutes;
+        hour.textContent = "0" + hours; 
 
-            if (minutes >= 59){
-                minutes = 0; 
-                mns.textContent = "0" + minutes; 
-                hours++; 
-                hour.textContent = "0" + hours;  
-            }
-        }    
+        if (seconds >= 10){
+            secs.textContent = seconds; 
+        } 
+        if (seconds >= 59){
+            seconds = 0;
+            secs.textContent = seconds; 
+            minutes ++;
+        } 
+        if (minutes >= 10){
+            mns.textContent= minutes;   
+        } 
+        if (minutes >=59){
+            minutes = 0; 
+            mns.textContent = minutes; 
+            hours++;  
+        } if (hours >=10){
+            hour.textContent = hours; 
+        } 
+        if (hours >= 59){
+            hours = 0;  
+            hour.textContent = hours;  
+        } 
         setTimeout(start, 1000);
-        
-};   
+    }
+}; 
 
-function reset(){
-    secs.textContent = "00";
-    mns.textContent = "00";
-    hour.textContent = "00"; 
+function stop(){
+    if (!running){ 
+        running = true;    
+        
+    }
+    
 }
+
+function reset(){ 
+    if (!running){ 
+        running = true;    
+        secs.textContent = "00";
+        mns.textContent = "00";
+        hour.textContent = "00"; 
+    }
+     
+}  
  
  
 
 const startButton = document.querySelector(".start"); 
+const stopButton = document.querySelector(".stop");
 const resetButton = document.querySelector(".reset");  
 startButton.addEventListener("click", start);  
+stopButton.addEventListener("click", stop); 
 resetButton.addEventListener("click", reset); 
 
 
